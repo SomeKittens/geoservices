@@ -60,8 +60,17 @@ var funcs = {
         UserKey: ''
       }
     }, function(err, incomingMessage, response) {
-      if (err) { cb(err); }
+      if (err) { return cb(err); }
 
+      try {
+        var response = JSON.parse(response);
+      } catch (e) {
+        return cb(e);
+      }
+
+      if (response.ErrorMessage) {
+        return cb(response.ErrorMessage);
+      }
       cb(null, JSON.parse(response));
     })
   }
