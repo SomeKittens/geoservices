@@ -1,0 +1,20 @@
+{
+  "name": "address-geoservices",
+  "version": "0.0.1",
+  "description": "Interacts with geoservices apis",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "geoservices",
+    "address normalization",
+    "address validation"
+  ],
+  "author": "Randall Koutnik <rkoutnik@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "request": "~2.34.0",
+    "xml2js": "~0.4.2"
+  }
+}
