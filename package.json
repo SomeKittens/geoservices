@@ -1,7 +1,7 @@
 {
   "name": "address-geoservices",
   "version": "0.0.1",
-  "description": "Interacts with geoservices apis",
+  "description": "Interacts with geoservices apis to help with managing addresses",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
@@ -13,6 +13,7 @@
   ],
   "author": "Randall Koutnik <rkoutnik@gmail.com>",
   "license": "MIT",
+  "repository": "git@github.com:SomeKittens/geoservices.git",
   "dependencies": {
     "request": "~2.34.0",
     "xml2js": "~0.4.2"
