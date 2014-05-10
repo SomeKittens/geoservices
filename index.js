@@ -41,13 +41,22 @@ var funcs = {
     });
   },
   validateAddress: function(addressObj, cb) {
-    var endpoint = 'http://app.yurisw.com/YAddressWebService/YAddress.asmx/ProcessJson';
+    var endpoint = 'http://app.yurisw.com/YAddressWebService/YAddress.asmx/ProcessJson'
+      , line1, line2;
+
+    if (!addressObj.line1) {
+      line1 = addressObj.street1 + ' ' + addressObj.street2;
+      line2 = addressObj.city + ' ' + addressObj.state + ' ' + addressObj.zip;
+    } else {
+      line1 = addressObj.line1;
+      line2 = addressObj.line2;
+    }
 
     request({
       url: endpoint,
       qs: {
-        AddressLine1: addressObj.line1,
-        AddressLine2: addressObj.line2,
+        AddressLine1: line1,
+        AddressLine2: line2,
         UserKey: ''
       }
     }, function(err, incomingMessage, response) {
