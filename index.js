@@ -5,21 +5,8 @@ var request = require('request')
 
 var apiKey, version;
 
-module.exports = function(_apiKey, _version) {
-  if (!_apiKey) {
-    throw new Error('apiKey is required');
-  }
-  if (!_version) {
-    version = '4.01';
-  } else {
-    version = _version;
-  }
-  apiKey = _apiKey;
-  return funcs;
-};
-
 var funcs = {
-  normalizeAddress: function(addressObj, cb) {
+  normalize: function(addressObj, cb) {
     var endpoint = 'https://geoservices.tamu.edu/Services/AddressNormalization/WebService/v04_01/HTTP/default.aspx';
 
     request({
@@ -40,7 +27,7 @@ var funcs = {
       xml2js.parseString(response, cb);
     });
   },
-  validateAddress: function(addressObj, cb) {
+  validate: function(addressObj, cb) {
     var endpoint = 'http://app.yurisw.com/YAddressWebService/YAddress.asmx/ProcessJson'
       , line1, line2;
 
@@ -61,9 +48,12 @@ var funcs = {
       }
     }, function(err, incomingMessage, response) {
       if (err) { return cb(err); }
+      if (incomingMessage.statusCode < 200 || incomingMessage.statusCode > 299) {
+        return cb(incomingMessage.statusCode);
+      }
 
       try {
-        var response = JSON.parse(response);
+        response = JSON.parse(response);
       } catch (e) {
         return cb(e);
       }
@@ -72,6 +62,19 @@ var funcs = {
         return cb(response.ErrorMessage);
       }
       cb(null, JSON.parse(response));
-    })
+    });
   }
+};
+
+module.exports = function(_apiKey, _version) {
+  if (!_apiKey) {
+    throw new Error('apiKey is required');
+  }
+  if (!_version) {
+    version = '4.01';
+  } else {
+    version = _version;
+  }
+  apiKey = _apiKey;
+  return funcs;
 };

@@ -1,6 +1,6 @@
 {
   "name": "address-geoservices",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Interacts with geoservices apis to help with managing addresses",
   "main": "index.js",
   "scripts": {
