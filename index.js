@@ -3,17 +3,18 @@
 var request = require('request')
   , xml2js = require('xml2js');
 
-var apiKey, version;
+var texKey, texVersion, yuriKey = '';
 
 var funcs = {
   normalize: function(addressObj, cb) {
+    if (!texKey) { throw new Error('No API key provided'); }
     var endpoint = 'https://geoservices.tamu.edu/Services/AddressNormalization/WebService/v04_01/HTTP/default.aspx';
 
     request({
       url: endpoint,
       qs: {
-        version: version,
-        apiKey: apiKey,
+        version: texVersion,
+        apiKey: texKey,
         nonParsedStreetAddress: addressObj.street,
         nonParsedCity: addressObj.city,
         nonParsedState: addressObj.state,
@@ -44,7 +45,7 @@ var funcs = {
       qs: {
         AddressLine1: line1,
         AddressLine2: line2,
-        UserKey: ''
+        UserKey: yuriKey
       }
     }, function(err, incomingMessage, response) {
       if (err) { return cb(err); }
@@ -63,18 +64,12 @@ var funcs = {
       }
       cb(null, JSON.parse(response));
     });
+  },
+  init: function(_texKey, _texVersion, _yuriKey) {
+    texKey = _texKey;
+    texVersion = _texVersion;
+    yuriKey = _yuriKey;
   }
 };
 
-module.exports = function(_apiKey, _version) {
-  if (!_apiKey) {
-    throw new Error('apiKey is required');
-  }
-  if (!_version) {
-    version = '4.01';
-  } else {
-    version = _version;
-  }
-  apiKey = _apiKey;
-  return funcs;
-};
+module.exports = funcs;
