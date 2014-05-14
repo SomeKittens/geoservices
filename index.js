@@ -10,6 +10,7 @@ var yuriKey = ''
 var funcs = {
   normalize: function(addressObj, cb) {
     if (!texKey) { throw new Error('No API key provided'); }
+
     var endpoint = 'https://geoservices.tamu.edu/Services/AddressNormalization/WebService/v04_01/HTTP/default.aspx';
 
     request({
@@ -68,11 +69,21 @@ var funcs = {
     });
   },
   initTex: function(_texKey, _texVersion) {
-    texKey = _texKey;
-    texVersion = _texVersion;
+    if (_texKey) {
+      texKey = _texKey;
+    } else {
+      throw new Error('API key is required');
+    }
+    if (_texVersion) {
+      texVersion = _texVersion;
+    }
   },
   initYaddress: function(_yuriKey) {
-    yuriKey = _yuriKey;
+    if (_yuriKey) {
+      yuriKey = _yuriKey;
+    } else {
+      throw new Error('API key is required');
+    }
   }
 };
 
