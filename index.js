@@ -3,7 +3,9 @@
 var request = require('request')
   , xml2js = require('xml2js');
 
-var texKey, texVersion, yuriKey = '';
+var yuriKey = ''
+  , texVersion = '4.01'
+  , texKey;
 
 var funcs = {
   normalize: function(addressObj, cb) {
@@ -65,9 +67,11 @@ var funcs = {
       cb(null, JSON.parse(response));
     });
   },
-  init: function(_texKey, _texVersion, _yuriKey) {
+  initTex: function(_texKey, _texVersion) {
     texKey = _texKey;
     texVersion = _texVersion;
+  },
+  initYaddress: function(_yuriKey) {
     yuriKey = _yuriKey;
   }
 };
