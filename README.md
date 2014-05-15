@@ -6,9 +6,22 @@ A collection of wrappers around tools that help you normalize and verify physica
 
     npm install --save address-geoservices
 
-###Usage
+##Usage
 
 There are two separate services provided by `address-geoservices` - normalization and correction.
+
+###The address object:
+
+Both `normalize` and `validate` expect to be called with two parameters: an address object with the following properties:
+
+    {
+      street: '',
+      city: '',
+      state: '',
+      zip: ''
+    }
+    
+and a callback.  The callback will be called with two parameters: `err` (if an error occurred, null otherwise) and an object with the results of the API call.
 
 ####Normalization
 
@@ -20,14 +33,7 @@ Normalization is the process of converting the parts of an address to standard a
 
     geoservices.initTex('myApiKey', 'desiredAPIVersion');
 
-Once you've called `initTex`, you can use `.normalize` to normalize a given address.  `normalize` expects two arguments.  One, an object with the following properties:
-
- - street
- - city
- - state
- - zip
-
-and a callback, which will be called with `err` or the returned, normalized address:
+Once you've called `initTex`, you can use `.normalize` to normalize a given address.
 
     geoservices.normalize({
       street: '2301 Westside Drive',
@@ -48,7 +54,7 @@ On the other hand, addresses can be mistyped.  `address-geoservices` provides a 
 
     geoservices.initYaddress('myApiKey');
 
-`validate` expects two arguments, an object like the one in `normalize`, and a callback:
+Once initalized, `validate` can be used as such: 
 
     geoservices.validate({
       street: '2301 Westside Drive',

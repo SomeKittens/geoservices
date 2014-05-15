@@ -27,6 +27,9 @@ var funcs = {
       }
     }, function(err, incomingMessage, response) {
       if (err) { cb(err); }
+      if (incomingMessage.statusCode < 200 || incomingMessage.statusCode > 299) {
+        return cb(incomingMessage.statusCode);
+      }
 
       xml2js.parseString(response, cb);
     });
