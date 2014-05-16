@@ -9,7 +9,7 @@ var yuriKey = ''
 
 var funcs = {
   normalize: function(addressObj, cb) {
-    if (!texKey) { throw new Error('No API key provided'); }
+    if (!texKey) { return cb(new Error('No API key provided')); }
 
     var endpoint = 'https://geoservices.tamu.edu/Services/AddressNormalization/WebService/v04_01/HTTP/default.aspx';
 

@@ -9,7 +9,9 @@
   "keywords": [
     "geoservices",
     "address normalization",
-    "address validation"
+    "address validation",
+    "address",
+    "addresses"
   ],
   "author": "Randall Koutnik <rkoutnik@gmail.com>",
   "license": "MIT",
@@ -17,5 +19,8 @@
   "dependencies": {
     "request": "~2.34.0",
     "xml2js": "~0.4.2"
+  },
+  "devDependencies": {
+    "should": "^3.3.1"
   }
 }
