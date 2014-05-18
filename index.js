@@ -26,7 +26,7 @@ var funcs = {
         responseFormat: 'xml'
       }
     }, function(err, incomingMessage, response) {
-      if (err) { cb(err); }
+      if (err) { return cb(err); }
       if (incomingMessage.statusCode < 200 || incomingMessage.statusCode > 299) {
         return cb(incomingMessage.statusCode);
       }
